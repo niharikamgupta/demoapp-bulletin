@@ -20,27 +20,28 @@ seeder.connect(db,{useNewUrlParser: true, useFindAndModify: false, useUnifiedTop
     seeder.clearModels(['Categories'], async function() {
         //insert
         await Categories.insertMany(categoryDocs);
-    });
-    // Clear specified collections
-    seeder.clearModels(['News'], async function() {
-        //get all Ids of categoriesDOcs
-        const catIds = await Categories.find({},{_id:1,slug:1});
-        console.log(catIds);
-        var chunk = 6;
-        var temparray;
-        // for (let index = 0; index < newsDocs.length; index++) {
-        for (let index = 0; index < newsDocs.length; index+=chunk) {
-            temparray = newsDocs.slice(index,index+chunk);
-            for (let i = 0; i < temparray.length; i++) {
-                var newsDoc = temparray[i];
-                newsDoc['categoryId'] = catIds[i]['_id']
-                // newsDoc['categoryname'] = catIds[i]['slug']
-                await News.create(newsDoc)
-            }
-        }
-        console.log('News Inserted with Category mapping')
-        seeder.disconnect();
-    });
+        // Clear specified collections
+        seeder.clearModels(['News'], async function() {
+          //get all Ids of categoriesDOcs
+          const catIds = await Categories.find({},{_id:1,slug:1});
+          console.log(catIds);
+          var chunk = 6;
+          var temparray;
+          // for (let index = 0; index < newsDocs.length; index++) {
+          for (let index = 0; index < newsDocs.length; index+=chunk) {
+              temparray = newsDocs.slice(index,index+chunk);
+              for (let i = 0; i < temparray.length; i++) {
+                  var newsDoc = temparray[i];
+                  newsDoc['categoryId'] = catIds[i]['_id']
+                  // newsDoc['categoryname'] = catIds[i]['slug']
+                  await News.create(newsDoc)
+              }
+          }
+          console.log('News Inserted with Category mapping')
+          seeder.disconnect();
+        });
+      });
+    
 });
 
 // Data array containing seed data - documents organized by Model
@@ -72,7 +73,7 @@ var categoryDocs = [
     {
         name: "Entertainment",
         slug: "entertainment",
-        content: "Dummy text एंटरटे",
+        content: "Dummy text entertainment",
         imgUrl: "https://img.ibc24.in/storage/news/15831695771528654285-9239.jpg"
     },
     {

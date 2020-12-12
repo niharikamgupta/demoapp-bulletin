@@ -10,13 +10,13 @@ var newsRouter = require('./routes/news'); //Import routes for "News" area of si
 var categoryRouter = require('./routes/categories'); //Import routes for "categories" area of site
 
 const Config = require('./config')
-const dbConnection = require('./init'); //initialize db connection
+const dbConnection = require('./init'); //include db connection file
 
 var app = express();
 
 console.log(`Server listening on port ${Config.port}`.green);
 
-dbConnection();
+dbConnection(); // make db connection 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,7 +34,8 @@ app.use('/category',categoryRouter) // Add Categories routes to middleware chain
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  res.status(404).send('<h1> Requested page not found !</h1>');
+  // next(createError(404));
 });
 
 // error handler
