@@ -4,6 +4,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var http = require('http');
 
 var indexRouter = require('./routes/index');
 var newsRouter = require('./routes/news'); //Import routes for "News" area of site
@@ -13,8 +14,20 @@ const Config = require('./config')
 const dbConnection = require('./init'); //include db connection file
 
 var app = express();
+var server = http.createServer(app);
+var listen = () => server.listen(Config.port, () => console.log(`Server listening on port ${Config.port}`.green));
 
-console.log(`Server listening on port ${Config.port}`.green);
+server.on('error', (e) => {
+    if (e.code === 'EADDRINUSE') {
+        console.log('Specified port unavailable, retrying in 10 seconds...'.red);
+        setTimeout(() => {
+            server.close();
+            server.listen(Config.port);
+        }, Config.retryAfter);
+    }
+});
+
+listen();
 
 dbConnection(); // make db connection 
 
