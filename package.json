@@ -1,0 +1,34 @@
+{
+  "name": "demo-bulletin",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "mongoose": "^5.11.7",
+    "mongoose-seed": "^0.6.0",
+    "morgan": "~1.9.1",
+    "nodemon": "^2.0.6"
+  },
+  "description": "DEMO FOR NEWS APP",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niharikamgupta/demo-bulletin.git"
+  },
+  "author": "Niharika Gupta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/niharikamgupta/demo-bulletin/issues"
+  },
+  "homepage": "https://github.com/niharikamgupta/demo-bulletin#readme"
+}
